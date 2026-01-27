@@ -1,8 +1,8 @@
-from backend.adoptions.models import Adoption
+from .models import AdoptionRequest
 from rest_framework import serializers
 
 class AdoptionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Adoption
+        model = AdoptionRequest
         fields = ['id', 'adopter', 'pet', 'adoption_date', 'status', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']

@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from .models import Adopter
-from serializer import AdopterSerializer
+from adopters.serializer import AdopterSerializer
 
 # Create your views here.
 # ======== #

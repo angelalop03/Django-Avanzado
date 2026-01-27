@@ -1,6 +1,6 @@
 from rest_framework import generics
 from .models import AdoptionRequest
-from serializer import AdoptionSerializer
+from adoptions.serializer import AdoptionSerializer
 
 # Create your views here.
 

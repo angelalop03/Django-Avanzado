@@ -1,5 +1,5 @@
 from .models import Animal
-from serializer import AnimalSerializer
+from animals.serializer import AnimalSerializer
 from rest_framework import status
 
 from rest_framework import generics

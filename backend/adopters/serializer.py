@@ -1,4 +1,4 @@
-from backend.adopters.models import Adopter
+from .models import Adopter
 
 from rest_framework import serializers
 
