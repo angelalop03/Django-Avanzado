@@ -55,3 +55,54 @@ No tienen permisos para crear , modificar o eliminar datos
 - Github
 
 ## Creación y configuración inicial
+### Creación del entorno virtual e instalación de dependencias
+```cmd
+python -m venv .venv
+.venv\Scripts\activate
+pip install django djangorestframework mysqlclient
+```
+### Creación del proyecto y aplicaciones
+Una vez configurado el entorno, se creó el proyecto principal y las aplicaciones necesarias para la gestión del sistema.
+
+```cmd
+django-admin startproject api_server .
+python manage.py startapp animals
+python manage.py startapp adopters
+python manage.py startapp adoptions
+```
+
+Posteriormente las aplicaciones fueron registradas en el archivo settings.py para que Django pudiera reconocerlas.
+
+### Configuración de la abse de datos MySQL
+Para la persistencia de los datos se utilizó MySQL como sistema gestor de bases de datos. La base de datos fue creada manualmente mediante la herramienta Dbeaver, junto con un ususario específico para el proyecto
+
+```sql
+CREATE DATABASE refugio_db;
+CREATE USER 'django_user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON refugio_db.* TO 'django_user'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+La conexión con MySQL se configuró en el archivo settings.py del proyecto:
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'refugio_db',
+        'USER': 'django_user',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+```
+
+### Migraciones y creación del administrador
+Tras la configuración de la abse de datos, se ejecutaron las migraciones para crear las tablas correspondientes a los modelos definidos en el proyecto y se creó un usuario administrador para acceder al panel de administración de Django.
+
+```cmd
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+```
+
