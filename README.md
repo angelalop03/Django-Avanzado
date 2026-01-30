@@ -40,10 +40,15 @@ Este grupo representa al personal del refugio y tiene permisos completos para:
 - Crear, modificar y eliminar animales
 - Gestionar adoptantes.
 - Gestionar solicitudes de adopción
+
+Captura 
+
 #### Visitantes (visitantes)
 Este grupo representa a usuarios externos o visitantes del sistema.
 - Pueden consultar la información disponible (lectura)
 No tienen permisos para crear , modificar o eliminar datos
+
+Captura
 
 ## Tecnologías utilizadas
 - Python
@@ -105,4 +110,50 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 ```
+## Vistas genéricas y pruebas de funcionamiento
+Para la implementación de la API se utilizaron vistas genéricas de Django REST Framework, aplicadas a los modelos Animal y AdoptionRequest. Estas vistas permiten gestionar de forma clara y estructurada las operaciones CRUD del sistema.
+cada operación fue probada mediante la herramienta Postman, comprobando el correcto funcionamiento.
 
+### Operaciones implementadas mediante vistas genéricas
+Las vistas genéricas utilizadas en el proyecto fueron las siguientes:
+- ListAPIView: Listar todos los registros
+- CreateAPIView: crear nuevos registros
+- RetrieveAPIView: obtener el detalle de un registro concreto
+- UpdateAPIView: actualizar un registro existente.
+- DestroyAPIView: eliminar un registro
+Estas vistas se implementaron para los modelos Animal y AdoptionRequest
+
+### Pruebas de listado (GET)
+Se comprobó el correcto funcionamiento de las vistas de listado accediendo a los endpoints correspondientes sin necesidad de autenticación. Estas peticiones permiten consultar la información disponible en el sistema.
+
+Captura de Postman – GET /animals/
+![alt text](images/getAnimal.png)
+
+Captura de Postman – GET /adoptions/
+![alt text](images/getAdoptionRequest.png)
+
+
+Resultado esperado:
+- Respuesta con código 200 OK
+- Devolución de un listado en formato JSON
+
+### Pruebas de creación (POST)
+Las operaciones de creación se probaron utilizando autenticación por token, verificando que solo los ususarios con permisos adecuados pueden crear nuevos registros.
+
+
+Captura de Postman – POST /animals/create/ con token válido
+Captura de Postman – POST /adoptions/create/ con token válido
+
+Resultado esperado:
+- Respuesta con código 201 Created
+- Registro creado correctamente en la base de datos
+
+### Pruebas consulta individual (GET por id)
+Se comprobó la obtención del detalle de un registro concreto utilizando su identificador
+
+Captura de Postman – GET /animals/{id}/
+![alt text](image.png)
+
+Resultado esperado:
+- Respuesta con código 200 OK
+- Información detallada del animal solicitado
