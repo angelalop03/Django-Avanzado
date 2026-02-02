@@ -152,7 +152,7 @@ Resultado esperado:
 Se comprobó la obtención del detalle de un registro concreto utilizando su identificador
 
 Captura de Postman – GET /animals/{id}/
-![alt text](image.png)
+![alt text](images/getAnimalById.png)
 
 Resultado esperado:
 - Respuesta con código 200 OK
@@ -162,6 +162,7 @@ Resultado esperado:
 Las vistas de actualización permiten modificar los datos de un registro existente, siempre que el usuario esté autenticado y tenga los permisos necesarios.
 
 Captura de Postman – PUT /animals/{id}/update/ con token
+![alt text](images/updateAnimalToken.png)
 
 Resultado esperado:
 - Respuesta con código 200 OK
@@ -171,7 +172,10 @@ Resultado esperado:
 Se realizaron pruebas para comprobar que la eliminación de registros está restringida a ususarios con permisos adecuados.
 
 Captura de Postman – DELETE /animals/{id}/delete/ con usuario autorizado
+![alt text](images/deleteAnimalToken.png)
+
  Captura de Postman – DELETE /animals/{id}/delete/ con usuario sin permisos (403 Forbidden)
+ ![alt text](images/deleteAnimalNoToken.png)
 
 Resultado esperado:
 - Usuario autorizado: eliminación correcta
@@ -191,7 +195,10 @@ Las operaciones disponibles a través del ViewSet incluyen:
 El correcto funcionamiento del ViewSet se verificó mediante pruebas realizadas con la herramienta Postman, accediendo a los endpoints generados automáticamente.
 
 Captura de Postman – GET /adopters/
+![alt text](images/getAdopters.png)
+
 Captura de Postman – POST /adopters/ con token válido
+![alt text](images/postAdopterToken.png)
 
 Resultados esperados:
 
@@ -228,8 +235,11 @@ El cuerpo de la petición incluye el identificador del adoptante:
 ### Pruebas realizadas
 El correcto funcionamiento de esta vista se verificó mediante pruebas en Postman:
 
-Captura de Postman – POST /adoptions/animal/{id}/request/ creando una solicitud de adopción
+Captura de Postman – POST /adoptions/animals/{id}/request-adoption/ creando una solicitud de adopción
+![alt text](images/createAdoptionRequest.png)
+
 Captura de Postman – GET /animals/{id}/ mostrando el estado del animal actualizado a reserved
+![alt text](images/reservedAnimal.png)
 
 Resultados esperados:
 - Respuesta con código 201 Created cuando la solicitud se crea correctamente.
@@ -257,6 +267,7 @@ Ejemplo:
 Como respuesta, el sistema devuelve un token único asociado al usuario autenticado.
 
 Captura de Postman – Obtención de token
+![alt text](images/token.png)
 
 ### Uso del token en las peticiones
 Una vez obtenido el token, este debe incluirse en la cabecera de las peticiones HTTP para acceder a los endpoints protegidos de la API.
