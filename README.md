@@ -80,7 +80,7 @@ python manage.py startapp adoptions
 
 Posteriormente las aplicaciones fueron registradas en el archivo settings.py para que Django pudiera reconocerlas.
 
-### Configuración de la abse de datos MySQL
+### Configuración de la base de datos MySQL
 Para la persistencia de los datos se utilizó MySQL como sistema gestor de bases de datos. La base de datos fue creada manualmente mediante la herramienta Dbeaver, junto con un ususario específico para el proyecto
 
 ```sql
