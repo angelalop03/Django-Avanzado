@@ -17,7 +17,7 @@ Cada animal contiene información básica como su nombre, edad, estado de vacuna
 Un animal puede encontrarse en diferentes estados:
 
 - available: el animal está disponible para ser adoptado
-- reserved: el animal tiene una solicitud fr adopción pendiente 
+- reserved: el animal tiene una solicitud de adopción pendiente 
 
 Un mismo animal puede tener varias solicitudes de adopción, pero solo peude estar disponible mientras su estado sea available
 
@@ -236,3 +236,46 @@ Resultados esperados:
 - El animal cambia de estado de available a reserved.
 - En caso de que el animal no exista o no esté disponible, se devuelve un error controlado (404 o 400 según corresponda).
 
+## Autenticación por token
+Para garantizar la seguridad del sistema y controlar el acceso a las operaciones sensibles, se implementó un sistema de autenticación por token.
+
+Este mecanismo permite identificar a los usuarios de forma segura en las peticiones API, evitando el uso de credenciales en cada solicitud y asegurando que solo los ususarios autenticados puedan realizar operaciones de creación, modificación o eliminación de datos.
+
+### Obtención del token
+Para obtener un token de autentificación, hay que realizar una petición al endpoint habilitado, proporcionando su nombre de usuario y contraseña.
+
+- POST /api/token/
+
+Ejemplo:
+```json
+{
+  "username": "staff1",
+  "password": "password"
+}
+```
+
+Como respuesta, el sistema devuelve un token único asociado al usuario autenticado.
+
+Captura de Postman – Obtención de token
+
+### Uso del token en las peticiones
+Una vez obtenido el token, este debe incluirse en la cabecera de las peticiones HTTP para acceder a los endpoints protegidos de la API.
+
+Gracias a este sistema, el servidor puede identificar al ususario en cada petición y comprobar si dispone de los permisos necesarios para realizar la acción solicitada.
+
+### Restricciones de acceso
+El uso de autenticación por token, combinado con el sistema de permisos basado en grupos, permite establecer las siguientes restricciones:
+- Usuarios no autenticados:
+    - Solo pueden realizar peticiones de lectura (GET).
+- Usuarios autenticados con permisos adecuados:
+    - Pueden crear, modificar y eliminar recursos.
+- Usuarios autenticados sin permisos:
+    - Reciben una respuesta 403 Forbidden al intentar realizar operaciones no autorizadas.
+
+
+## Conclusiones
+En este proyecto se ha desarrollado una API REST funcional utilizando Django y Django REST Framework, cumpliendo con todos los requisitos propuestos. El sistema permite gestionar de forma eficiente los animales de un refugio, los adoptantes y las solicitudes de adopción, aplicando una lógica coherente y estructurada.
+
+Se han utilizado vistas genéricas, un ViewSet y una vista personalizada que enlaza varios modelos, garantizando una correcta organización del código y facilitando su mantenimiento. Además, se ha implementado un sistema de autenticación por token y permisos basados en grupos, asegurando el acceso controlado a las distintas funcionalidades de la aplicación.
+
+Por último, el uso de MySQL como base de datos y el control de versiones mediante GitHub permiten que el proyecto sea escalable, portable y fácil de mantener, consolidando una solución completa y adecuada para la gestión de un refugio de animales.
