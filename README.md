@@ -193,6 +193,9 @@ Las operaciones disponibles a través del ViewSet incluyen:
 - Actualización de la información de un adoptante.
 - Eliminación de adoptantes
 
+Aunque el modelo Adopter se gestiona principalmente mediante un ViewSet, **también se implementaron vistas genéricas adicionales** (ListCreateAPIView, RetrieveAPIView, UpdateAPIView y DestroyAPIView).  
+Esta decisión se tomó con el objetivo de **cumplir explícitamente el enunciado del proyecto**, que exige el uso de **al menos cuatro vistas genéricas por cada modelo**, garantizando así el cumplimiento completo de los requisitos establecidos.
+
 ### Pruebas del viewSet
 El correcto funcionamiento del ViewSet se verificó mediante pruebas realizadas con la herramienta Postman, accediendo a los endpoints generados automáticamente.
 
