@@ -157,3 +157,82 @@ Captura de Postman – GET /animals/{id}/
 Resultado esperado:
 - Respuesta con código 200 OK
 - Información detallada del animal solicitado
+
+### Pruebas de actualización (PUT/PATCH)
+Las vistas de actualización permiten modificar los datos de un registro existente, siempre que el usuario esté autenticado y tenga los permisos necesarios.
+
+Captura de Postman – PUT /animals/{id}/update/ con token
+
+Resultado esperado:
+- Respuesta con código 200 OK
+- Datos actualizados correctamente
+
+### Pruebas de eliminación (DELETE)
+Se realizaron pruebas para comprobar que la eliminación de registros está restringida a ususarios con permisos adecuados.
+
+Captura de Postman – DELETE /animals/{id}/delete/ con usuario autorizado
+ Captura de Postman – DELETE /animals/{id}/delete/ con usuario sin permisos (403 Forbidden)
+
+Resultado esperado:
+- Usuario autorizado: eliminación correcta
+- Usuario sin permisos: respuesta 403 Forbidden
+
+## ViewSet 
+Para la gestión del modelo Adopter se utilizó un ViewSet. El uso del mismo permite centralizar en una única clase todas las operaciones CRUD.
+
+Las operaciones disponibles a través del ViewSet incluyen:
+- Listado de adoptantes 
+- Creación de nuevos adoptantes
+- Consulta del detalle de un adoptante.
+- Actualización de la información de un adoptante.
+- Eliminación de adoptantes
+
+### Pruebas del viewSet
+El correcto funcionamiento del ViewSet se verificó mediante pruebas realizadas con la herramienta Postman, accediendo a los endpoints generados automáticamente.
+
+Captura de Postman – GET /adopters/
+Captura de Postman – POST /adopters/ con token válido
+
+Resultados esperados:
+
+En la petición GET se obtiene un listado de adoptantes en formato JSON.
+
+En la petición POST se crea correctamente un nuevo adoptante cuando el usuario dispone de los permisos necesarios.
+
+## Api_View
+Además de las vistas genéricas y el ViewSet, se implementó una vista personalizada utilizando el decorador @api_view. Esta vista se creó para cumplir el requisito de disponer de una funcionalidad propia que enlace varios modelos y aplique una lógica de negocio específica.
+
+En este proyecto , la vista personalizada gestiona el proceso de solicitud de adopción de un animal. Para ello, enlaza los siguientes modelos:
+
+- Animal 
+- Adopter 
+- AdoptionRequest
+
+### Lógica implementada
+Cuando un adoptante solicita adoptar un animal, el sistema realiza los siguientes pasos:
+1. Comprueba que el animal existe y que su estado es available.
+2. Comprueba que el adoptante existe.
+3. Crea una nueva entrada en AdoptionRequest enlazando el animal con el adoptante.
+4. Actualiza el estado del animal automáticamente a reserved, evitando que otro adoptantes puedan solicitar el mismo animal como disponible.
+
+### Endpoint
+La vista se expone mediante el endopint:
+- POST /adoptions/animal/<animal_id>/request/
+El cuerpo de la petición incluye el identificador del adoptante:
+```json
+{
+  "adopter_id": 1
+}
+```
+
+### Pruebas realizadas
+El correcto funcionamiento de esta vista se verificó mediante pruebas en Postman:
+
+Captura de Postman – POST /adoptions/animal/{id}/request/ creando una solicitud de adopción
+Captura de Postman – GET /animals/{id}/ mostrando el estado del animal actualizado a reserved
+
+Resultados esperados:
+- Respuesta con código 201 Created cuando la solicitud se crea correctamente.
+- El animal cambia de estado de available a reserved.
+- En caso de que el animal no exista o no esté disponible, se devuelve un error controlado (404 o 400 según corresponda).
+
