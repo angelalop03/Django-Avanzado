@@ -41,14 +41,16 @@ Este grupo representa al personal del refugio y tiene permisos completos para:
 - Gestionar adoptantes.
 - Gestionar solicitudes de adopción
 
-Captura 
+Captura http://127.0.0.1:8000/admin/auth/group/1/change/
+![alt text](images/staff_refugio.png)
 
 #### Visitantes (visitantes)
 Este grupo representa a usuarios externos o visitantes del sistema.
 - Pueden consultar la información disponible (lectura)
 No tienen permisos para crear , modificar o eliminar datos
 
-Captura
+Captura http://127.0.0.1:8000/admin/auth/group/2/change/
+![alt text](images/visistantes.png)
 
 ## Tecnologías utilizadas
 - Python
